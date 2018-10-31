@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to ergoNTN</h2>
+  <p>National Testing Network directly contracts with public safety departments across the country to test candidates for jobs.</p>
+  <p>Take a look at the first mobile app by IT dept!</p>
+  <br>
+
+  <!-- Form and get value from API -->
+  <ion-list>
+    <ion-item>
+      <ion-label>Pick a State ...</ion-label>
+      <ion-select [(ngModel)]="stateid" #ctl="ngModel">
+        <ion-option value="30" selected>Arizona</ion-option>
+        <ion-option value="269">California</ion-option>
+        <ion-option value="135">Florida</ion-option>
+        <ion-option value="1">Washington</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <button ion-button full (click)="getTestingLocationsbyStateId(stateid)">Show Testing Locations</button>
+
+  <!-- Display the result -->
+  <div id='showTestingLocations'>
+    <ion-content>
+      <ion-list inset>
+        <ion-item *ngFor="let testingLocation of testingLocations">
+          <p>{{testingLocation[0]}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </div>
+
+</ion-content>
