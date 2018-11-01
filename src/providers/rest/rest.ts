@@ -10,10 +10,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RestProvider {
   apiUrl = 'https://www.nationaltestingnetwork.com/publicsafetyjobs/agency.cfc?'
+
   constructor(public http: HttpClient) {
-    console.log('Hello RestProvider Provider');
+    // console.log('Hello RestProvider Provider');
   }
-  getTestingLocationsbyStateId(stateid=1){
+
+  getTestingLocationsbyStateId(stateid=30){ // first item of the dropdown list
   	return new Promise(resolve => {
   		this.http.get(this.apiUrl+'method=GetTestingLocationsbyStateId&stateid='+stateid).subscribe(data => {
   			resolve(data.DATA);
@@ -22,4 +24,15 @@ export class RestProvider {
   		});
   	});
   }
+
+  getProfessionsByStateId(stateid=30){ // first item of the dropdown list
+  	return new Promise(resolve => {
+  		this.http.get(this.apiUrl+'method=GetProfessionsByStateId&stateid='+stateid).subscribe(data => {
+  			resolve(data.DATA);
+  		}, err => {
+  		console.log(err);
+  		});
+  	});
+  }
+
 }

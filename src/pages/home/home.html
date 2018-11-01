@@ -22,14 +22,15 @@
       </ion-select>
     </ion-item>
   </ion-list>
-  <button ion-button full (click)="getTestingLocationsbyStateId(stateid)">Show Testing Locations</button>
+  <button ion-button (click)="getTestingLocationsbyStateId(stateid)">Show Testing Locations</button>
+  <button ion-button (click)="getProfessionsByStateId(stateid)">Show Professions</button>
 
   <!-- Display the result -->
-  <div id='showTestingLocations'>
+  <div id='showList'>
     <ion-content>
       <ion-list inset>
-        <ion-item *ngFor="let testingLocation of testingLocations">
-          <p>{{testingLocation[0]}}</p>
+        <ion-item *ngFor="let item of list">
+          <p>{{item[0]}}</p>
         </ion-item>
       </ion-list>
     </ion-content>
