@@ -10,9 +10,9 @@ export class RestProvider {
 
   apiUrl = 'https://www.nationaltestingnetwork.com/publicsafetyjobs/agency.cfc?'
 
-  restAgencyNtn(methodName,stateId){
+  restAgencyNtn(methodName,stateId,professionId){
   	return new Promise(resolve => {
-  		this.http.get(this.apiUrl+'method='+methodName+'&stateid='+stateId).subscribe(data => {
+  		this.http.get(this.apiUrl+'method='+methodName+'&stateid='+stateId+'&professionid='+professionId).subscribe(data => {
   			resolve(data.DATA);
   		}, err => {
   		console.log(err);

@@ -15,22 +15,34 @@ export class HomePage {
             ];
 
   methods = [
-            {name: 'GetTestingLocationsbyStateId', buttonName: "Show Testing Locations"},
             {name: 'GetProfessionsByStateId', buttonName: "Show Professions"},
+            {name: 'GetTestingLocationsbyStateId', buttonName: "Show All Testing Locations"},
+            {name: 'GetLocationByStateIdProfessionID', buttonName: "> Testing Locations"},
             ];
 
   list    : any;
+  process = 'selectStates';
+  stateId = 0;
+  professionName: any;
 
   constructor(public navCtrl: NavController, public restProvider: RestProvider) {
     // restAgencyNtn(methodName,stateId); first start
   }
 
-  restAgencyNtn(methodName,stateId) {
-    this.restProvider.restAgencyNtn(methodName,stateId)
+  selectStates() {
+    this.list = this.states;
+    this.process = 'selectStates';
+  }
+
+  restAgencyNtn(methodName,stateId,professionId,professionName) {
+    this.restProvider.restAgencyNtn(methodName,stateId,professionId)
       .then(data => {
         this.list = data;
         // console.log(this.list);
-      })
+      });
+    this.professionName = professionName;
+    this.process = methodName;
+    this.stateId = stateId;
   }
 
 }

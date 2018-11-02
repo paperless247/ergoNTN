@@ -10,31 +10,65 @@
   <p>Take a look at the first mobile app by IT dept!</p>
   <br>
 
-  <!-- Form and get value from API -->
-  <ion-list>
-    <ion-item>
-      <ion-label>Pick a State ...</ion-label>
-      <ion-select [(ngModel)]="stateId" #ctl="ngModel">
-        <span *ngFor="let state of states">
-          <ion-option value="{{state.id}}">{{state.name}}</ion-option>
-        </span>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <button ion-button full (click)="selectStates()">
 
-  <span *ngFor="let method of methods">
-    <button ion-button (click)="restAgencyNtn(method.name,stateId)">{{method.buttonName}}</button>
-  </span>
+    <span *ngIf="process == 'selectStates'">Pick a State ...</span>
+
+    <span *ngIf="process !== 'selectStates'">
+      <span *ngFor="let state of states">
+        <span *ngIf="state.id === stateId">{{state.name}}</span>
+      </span>
+      <span *ngIf="professionName">&nbsp;> {{professionName}}</span>
+    </span>
+
+  </button>
+
+
 
   <!-- Display the result -->
-  <div id='showList'>
+  <div *ngIf="list" id='showList'>
     <ion-content>
       <ion-list inset>
         <ion-item *ngFor="let item of list">
-          <p>{{item[0]}} <span *ngIf=" method == 'GetProfessionsByStateId'">BUTTON</span></p>
+          <span *ngIf="process == 'selectStates'">
+            <!-- methods[0] is GetProfessionsByStateId-->
+            <p (click)="restAgencyNtn(methods[0].name,item.id)">{{item.name}}</p>
+          </span>
+          <span *ngIf="process != 'selectStates'">
+            <!-- methods[2] is GetLocationByStateIdProfessionID-->
+            <p (click)="restAgencyNtn(methods[2].name,stateId,item[1],item[0])">{{item[0]}}</p>
+          </span>
         </ion-item>
       </ion-list>
     </ion-content>
   </div>
+
+
+  <!-- dropdown list options
+
+   <ion-list>
+    <ion-item>
+      <ion-label>Pick a State ...</ion-label>
+      <ion-select [(ngModel)]="stateId" #ctl="ngModel">
+        <ion-option *ngFor="let state of states" value="{{state.id}}" >{{state.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list> -->
+  <ion-col col-3 text-center>
+      <div class="center">
+        <span *ngIf="stateId">
+          <!-- slice for start to end (not included) use this one to generate many buttons -->
+          <!-- GetTestingLocationsbyStateId at the bottom -->
+          <!-- <button *ngFor="let method of methods | slice:1:2" ion-button (click)="restAgencyNtn(method.name,stateId)">{{method.buttonName}}</button> -->
+
+          <span *ngFor="let state of states">
+            <button *ngIf="state.id === stateId" ion-button (click)="restAgencyNtn('GetTestingLocationsbyStateId',stateId)">All {{state.name}} Testing Centers</button>
+          </span>
+
+
+        </span>
+      </div>
+  </ion-col>
+
 
 </ion-content>
