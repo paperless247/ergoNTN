@@ -7,25 +7,29 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  list : any;
+  states =  [
+            {id: 30, name: "Arizona"},
+            {id: 269, name: "California"},
+            {id: 135, name: "Florida"},
+            {id: 1, name: "Washington"},
+            ];
+
+  methods = [
+            {name: 'GetTestingLocationsbyStateId', buttonName: "Show Testing Locations"},
+            {name: 'GetProfessionsByStateId', buttonName: "Show Professions"},
+            ];
+
+  list    : any;
 
   constructor(public navCtrl: NavController, public restProvider: RestProvider) {
-    // getTestingLocationsbyStateId(stateid); first start
+    // restAgencyNtn(methodName,stateId); first start
   }
 
-  getTestingLocationsbyStateId(stateid) {
-    this.restProvider.getTestingLocationsbyStateId(stateid)
+  restAgencyNtn(methodName,stateId) {
+    this.restProvider.restAgencyNtn(methodName,stateId)
       .then(data => {
         this.list = data;
-        // console.log(this.testingLocations);
-      })
-  }
-
-  getProfessionsByStateId(stateid) {
-    this.restProvider.getProfessionsByStateId(stateid)
-      .then(data => {
-        this.list = data;
-        // console.log(this.professions);
+        // console.log(this.list);
       })
   }
 
